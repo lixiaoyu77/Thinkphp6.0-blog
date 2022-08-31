@@ -1,0 +1,100 @@
+{extend name='public/base'/}
+
+{block name='title'}用户列表{/block}
+
+{block name='main'}
+<!--搜索和表单-->
+ <form action="{:url('/admin/index')}" class="pb-3">
+    <div class="form-row">
+        <div class="col-form-label">
+            <label for="username">用户名：</label>
+        </div>
+        <div class="col-2">
+            <input type="text" id="username" name="username" class="form-control" placeholder="查询的用户名">
+        </div>
+        <div class="col-form-label">
+            <label for="email">邮箱：</label>
+        </div>
+        <div class="col-2">
+            <input type="text" id="email" name="email" class="form-control" placeholder="查询的邮箱">
+        </div>
+        <div class="col-form-label">
+            <label for="gender">性别：</label>
+        </div>
+        <div class="col-2">
+            <select name="gender" id="gender" class="custom-select">
+                <option selected value="">选择性别</option>
+                <option value="男">男</option>
+                <option value="女">女</option>
+            </select>
+        </div>
+        <div class="col-auto">
+            <button class="btn btn-primary" >搜索</button>
+            <a href="{:url('/admin/index/create')}" class="btn btn-success">添加用户</a>
+        </div>
+    </div>
+</form>
+
+<!--数据列表--> 
+<table class="table table-bordered"> 
+    <thead class="thead-light"> 
+        <tr>
+            <th class="text-center">ID</th> 
+            <th>用户名</th> 
+            <th class="text-center">性别</th> 
+            <th >邮箱</th> 
+            <th class="text-center">状态</th> 
+            <th class="text-center {$orderTime =='desc'  ? '' : 'dropup'}">
+                <a href="{:app\\admin\\common\\Tool::url('create_time')}create_time={$orderTime}" class="text-secondary text-decoration-none dropdown-toggle">创建时间</a> 
+            </th> 
+            <th class="text-center">操作</th> 
+        </tr>
+    </thead>
+    <tbody>
+        {assign name="empty" value='
+        <tr>
+            <td colspan="7" class="text-center text-muted">没有数据</td>
+        </tr>
+        <tr>
+            <td colspan="7" class="text-right"> <a href="index.html"><button class="btn btn-primary" >返回</button></a> 
+            </td>
+        </tr>
+        '}
+
+        {volist name="list" id="obj" empty="$empty"}
+        <tr>
+            <!--模版部分，采用<volist>遍历显示数据；-->
+            <td class="text-center">{$obj.id}</td>
+            <td ><span data-toggle="tooltip" data-placement="right" title="{$obj.hobby.content?$obj.hobby.content:''}">{$obj.username}</span></td>
+            <td class="text-center">{$obj.gender}</td>
+            <td >{$obj.email}</td>
+            <td class="text-center">    
+                <span class="badge btn-{$obj.badge}">{$obj.status}</span>
+            </td>
+            <td>{$obj.create_time}</td>
+            <td class="text-center"> 
+                <form action="{:url('/admin/index/'.$obj.id)}" method="post">
+                    <input type="hidden" name="_method" value="delete">
+                    <button class="btn btn-danger btn-sm btn-delete" >删除</button> 
+                    <a href="{:url('/admin/index/'.$obj.id.'/edit')}" class="btn btn-warning btn-sm  ">修改</a>
+                </form>
+            </td>
+        </tr>
+        {/volist}
+    </tbody>
+</table> 
+
+<!--框架分页-->
+{$list|raw}
+{/block}
+
+
+{block name='js'}
+<script type="text/javascript"> 
+    $('.btn-delete').click(() => { 
+        let flag = confirm('真的要删除这条数据吗？'); 
+        return flag ? true : false; 
+    }) 
+    $('[data-toggle="tooltip"]').tooltip();
+</script>
+{/block}

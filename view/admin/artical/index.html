@@ -1,0 +1,83 @@
+{extend name='public/base'/}
+
+{block name='title'}用户列表{/block}
+
+{block name='main'}
+<!--搜索和表单-->
+<form action="{:url('/admin/artical')}" class="pb-3">
+    <div class="form-row">
+        <div class="col-form-label">
+            <label for="tittle">标题：</label>
+        </div>
+        <div class="col-2">
+            <input type="text" id="tittle" name="tittle" class="form-control" placeholder="查询的标题">
+        </div>
+        <div class="col-form-label">
+            <label for="auth_name">作者：</label>
+        </div>
+        <div class="col-2">
+            <input type="text" id="authname" name="authname" class="form-control" placeholder="查询的作者">
+        </div>
+
+        <div class="col-auto">
+            <button class="btn btn-primary" >搜索</button>
+            <a href="{:url('/admin/artical/create')}" class="btn btn-success">添加文章</a>
+        </div>
+    </div>
+</form>
+<!--数据列表--> 
+<table class="table table-bordered"> 
+    <thead class="thead-light"> 
+        <tr>
+            <th class="text-center">ID</th> 
+            <th class="text-center">标题</th> 
+            <th class="text-center">作者</th> 
+            <th class="text-center">创作时间</th> 
+            <th class="text-center">操作</th> 
+        </tr>
+    </thead>
+    <tbody>
+        {assign name="empty" value='
+        <tr>
+            <td colspan="7" class="text-center text-muted">没有数据</td>
+        </tr>
+        <tr>
+            <td colspan="7" class="text-right"> <a href="artical.html"><button class="btn btn-primary" >返回</button></a> 
+            </td>
+        </tr>
+        '}
+
+        {volist name="list" id="obj" empty="$empty"}
+        <tr>
+            <!--模版部分，采用<volist>遍历显示数据；-->
+            <td class="text-center">{$obj.id}</td>
+            <td class="text-center">{$obj.tittle}</td>
+            <td class="text-center">{$obj.authname}</td>
+            <td class="text-center">{$obj.create_time}</td>
+            <td class="text-center"> 
+                <form action="{:url('/admin/artical/'.$obj.id)}" method="post">
+                    <input type="hidden" name="_method" value="delete">
+                    <button class="btn btn-danger btn-sm btn-delete" >删除</button> 
+                    <a href="{:url('/admin/artical/'.$obj.id.'/edit')}" class="btn btn-warning btn-sm  ">修改</a>
+                </form>
+            </td>
+        </tr>
+        {/volist}
+    </tbody>
+</table> 
+<!--框架分页-->
+    {$list|raw}
+{/block}
+
+
+
+{block name='js'}
+<script type="text/javascript"> 
+    $('.btn-delete').click(() => { 
+        let flag = confirm('真的要删除这条数据吗？'); 
+        return flag ? true : false; 
+    }) 
+    $('[data-toggle="tooltip"]').tooltip();
+</script>
+{/block}
+

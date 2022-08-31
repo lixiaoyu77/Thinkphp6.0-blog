@@ -1,0 +1,32 @@
+{extend name='public/base'/}
+
+{block name='title'}最新文章{/block}
+
+
+
+{block name='main'}
+    <div class="art-right r">
+        <h2 class="art-txt">&nbsp;&nbsp;<em class="iconfont icon-wifi"></em> <span>最新文章</span></h2>
+        {volist name="list" id="obj" empty="$empty"}
+        <div class="art-model">
+            <h3><a href="#" >{$obj.tittle}</a></h3>
+            <p class="dateview"><span>{$obj.create_time}</span> <span>作者：{$obj.authname}</span></p>
+            <dl class="img-txt">
+                <dt>
+                    <img src="/src/blog/img/at5.png" >
+                </dt>
+                <dd>
+                    <p class="deatil">{$obj.contents}</p>
+                    <a href="#" class="btn  c-fff" >查看全文</a>
+                </dd>
+            </dl>
+        </div>
+        {/volist}
+        
+        <!--框架分页-->
+        <div > {$list|raw}</div>
+        
+    </div>
+    
+{/block}
+

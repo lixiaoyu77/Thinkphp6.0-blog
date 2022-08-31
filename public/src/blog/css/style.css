@@ -1,0 +1,10 @@
+@charset "UTF-8";
+.siadebar .btn {
+    display: block;
+    margin: 0.6rem auto;
+    
+}
+
+.main {
+    margin: 0.6rem auto;
+}

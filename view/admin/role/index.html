@@ -1,0 +1,46 @@
+{extend name='public/base'/}
+
+{block name='title'}角色列表{/block}
+
+{block name='main'}
+        <table class="table table-bordered"> 
+                    <thead class="thead-light"> 
+                        <tr>
+                            <th class="text-center">ID</th> 
+                            <th>角色名</th> 
+                            <th >模块地址</th> 
+                
+                            <th class="text-center">操作</th> 
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        <?php foreach ($list as $obj) {?>
+                        <tr>
+                            <td class="text-center"><?=$obj['id']?></td>
+                            <td ><?=$obj['type']?></td>
+                            <td ><?=$obj['uri']?></td>
+                           
+                            <td class="text-center"> 
+                                <form action="{:url('/auth/'.$obj.id)}" method="post">
+                                    <input type="hidden" name="_method" value="delete">
+                                    <button class="btn btn-danger btn-sm btn-delete" >删除</button> 
+                                    <a href="{:url('/auth/'.$obj.id.'/edit')}" class="btn btn-warning btn-sm  ">修改</a>
+                                </form>
+                            </td>
+                        </tr>
+                        <?php }?>
+                    </tbody>
+        </table> 
+{/block}
+
+
+{block name='js'}
+<script type="text/javascript"> 
+    $('.btn-delete').click(() => { 
+        let flag = confirm('真的要删除这条数据吗？'); 
+        return flag ? true : false; 
+    }) 
+    $('[data-toggle="tooltip"]').tooltip();
+</script>
+{/block}

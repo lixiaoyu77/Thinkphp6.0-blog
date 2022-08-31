@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- 引入 Bootstrap CSS --> 
+    {css href="__CSS__/bootstrap.min.css"} 
+    {css href="__CSS__/style.css"}
+
+    <!-- 移动设备优先 --> 
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<body>
+    <!--简易提示--> 
+<div class="d-flex vw-100 vh-100 bg-light justify-content-center align-items-center">
+   <div class="toast show mb-5 pl-3 pr-3">
+       <div class="toast-header">
+           <strong>● 系统提示</strong>
+       </div>
+       <div class="toast-body">
+           <ol class="text-danger">
+               {volist name='infos' id='item'}
+               <li>{$item}</li>
+               {/volist}
+           </ol>
+           <a href="{$url_path}" class="btn btn-primary btn-sm w-100">{$url_text}</a>
+       </div>
+   </div>
+</div>
+    <!-- 引入 JS 文件 --> 
+    {js href="__JS__/jquery-3.3.1.min.js"} {js href="__JS__/bootstrap.bundle.min.js"}
+</body>
+</html>

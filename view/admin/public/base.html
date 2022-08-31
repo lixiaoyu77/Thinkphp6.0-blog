@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TP6Demo-- {block name='title'} {/block}</title>
+
+    <!-- 引入 Bootstrap CSS --> 
+    {css href="__CSS__/bootstrap.min.css"} 
+    {css href="__CSS__/style.css"}
+    <style>
+		.pagination { 
+
+			list-style: none; 
+			margin: 0;
+   			padding-left: 270px;
+		}
+		.pagination li { 
+			
+			display: inline-block; 
+			padding: 8px; }
+	</style>
+    <!-- 移动设备优先 --> 
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<body>
+    <!--导航-->
+    <nav class="navbar navbar-light bg-light shadow-sm p-1">
+        <a href=""></a>
+        <div class="nav-item dropdown mr-2" >
+            <a href="" class="dropdown-toggle nav-link text-secondary" data-toggle="dropdown">{:session('admin')}</a>
+            <div class="dropdown-menu">
+                <a href="" class="dropdown-item">个人中心</a>
+                <a href="{:url('admin/logout')}" class="dropdown-item">退出管理</a>
+            </div>
+        </div>
+    </nav>
+    <!--核心部分--> 
+    <div class="container pt-5 mt-5"> 
+        <div class="row"> 
+            <div class="col-2 sidebar pt-2"> 
+                <button class="btn btn-secondary mb-3 user">用户管理</button>           
+                <button class="btn btn-secondary mb-3 auth">权限管理</button> 
+                <button class="btn btn-secondary mb-3 repeat">喜好管理</button> 
+                <button class="btn btn-secondary mb-3 role">角色管理</button> 
+                <button class="btn btn-secondary mb-3 artical">文章管理</button> 
+            </div> 
+            <div class="col-9 main"> 
+                {block name='main'}{/block}
+            </div> 
+        </div> 
+    </div>
+<!-- 引入 JS 文件 --> 
+{js href="__JS__/jquery-3.3.1.min.js"} 
+{js href="__JS__/bootstrap.bundle.min.js"}
+{block name='js'}
+{/block}
+
+<script>
+    $('.user').click(() => { 
+        location.href='/admin/index.html'
+    }) 
+    $('.auth').click(() => { 
+        location.href='/admin/auth.html'
+    }) 
+    $('.role').click(() => { 
+        location.href='/admin/role.html'
+    }) 
+    $('.artical').click(() => { 
+        location.href='/admin/artical.html'
+    }) 
+    $('.repeat').click(() => { 
+        alert('自行扩展');
+    }) 
+</script>
+</body>
+</html>

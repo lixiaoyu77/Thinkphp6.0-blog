@@ -1,0 +1,88 @@
+{extend name='public/base'/}
+
+{block name='title'}修改资料{/block}
+
+{block name='main'}
+                <!--修改用户资料-->
+                <form action="{:url('/admin/index/'.$obj.id)}" method="post">
+                    <input type="hidden" name="_method" value="put">
+                    <fieldset class="w-75">
+                        <!--用户名-->
+                        <div class="form-group row">
+                            <label for="username" class="col-2 col-form-label">用户名:</label>
+                            <div class="col-8">
+                            <input type="text" id="username" name="username" class="form-control" disabled value="{$obj.username}">
+                            </div>
+                            <span class="col-2 text-danger col-form-label">*</span>
+                        </div>
+                        <!--密码-->
+                        <div class="form-group row">
+                            <label for="newpassword" class="col-2 col-form-label">新密码:</label>
+                            <div class="col-8">
+                            <input type="password" id="newpassword" name="newpassword" class="form-control" placeholder="请输入新密码">
+                            </div>
+                            <span class="col-2 text-danger col-form-label">*</span>
+                        </div>
+                        <!--密码确认-->
+                        <div class="form-group row">
+                            <label for="newpasswordnot" class="col-2 col-form-label">密码确认:</label>
+                            <div class="col-8">
+                            <input type="password" id="newpasswordnot" name="newpasswordnot" class="form-control" placeholder="请输入密码确认">
+                            </div>
+                            <span class="col-2 text-danger col-form-label">*</span>
+                        </div>
+                        <!--性别-->
+                        <div class="form-group row">
+                            <label for="passwordnot" class="col-2 col-form-label">性别:</label>
+                            <div class="col-8">
+                                <label for="man" class="col-form-label col-2">
+                                    <input type="radio" id="man" name="gender" value="男" {$obj.gender == '男'? 'checked':'' }>
+                                    男
+                                </label>
+                                <label for="woman" class="col-form-label col-6">
+                                    <input type="radio" id="woman" name="gender" value="女" {$obj.gender == '女'? 'checked':'' }>
+                                    女
+                                </label>
+                            </div>
+
+                        </div>
+                         <!--电子邮箱-->
+                        <div class="form-group row">
+                            <label for="email" class="col-2 col-form-label">电子邮箱:</label>
+                            <div class="col-8">
+                            <input type="text" id="email" name="email" class="form-control" disabled value="{$obj.email}">
+                            </div>
+                            <span class="col-2 text-danger col-form-label">*</span>
+                        </div>
+                        <!--爱好-->
+                        <div class="form-group row">
+                            <label for="content" class="col-2 col-form-label">爱好:</label>
+                            <div class="col-8">
+                            <input type="text" id="content" name="content" class="form-control"  value="{$obj.hobby.content|default=''}">
+                            </div>
+                        </div>
+                        <!--性别-->
+                        <div class="form-group row">
+                            <label  class="col-2 col-form-label">状态:</label>
+                            <div class="col-6">
+                                <select name="status" id="status" class="form-control w-50">
+                                    <option value="0" {$obj.status == '待审核'? 'selected':''}>待审核</option>
+                                    <option value="1" {$obj.status == '通过'  ? 'selected':''}>通过</option>
+                                </select>
+                            </div>
+                            <div class="col-2 text-right col-form-label">
+                               <a href="{:url('admin/index')}">返回列表</a>
+                            </div>
+                        </div>
+                        <!--提交-->
+                        <div class="form-group row">
+                            <label class="col-2 col-form-label"></label>
+                            <div class="col-8">
+                                <input type="hidden" value="{:token()}" name="__token__">
+                            <button class="btn btn-success w-100">修改资料</button>
+                            </div>  
+                        </div>
+                        
+                    </fieldset>
+                </form>
+{/block}
